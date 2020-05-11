@@ -23,7 +23,7 @@ public class ProductRepositoryTest {
     private ProductRepository productRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 

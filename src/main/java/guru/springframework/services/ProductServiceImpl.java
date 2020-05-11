@@ -16,17 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by jt on 1/10/17.
- */
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private static final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-    private ProductRepository productRepository;
-    private ProductFormToProduct productFormToProduct;
-    private JmsTemplate jmsTemplate;
+    private final ProductRepository productRepository;
+    private final ProductFormToProduct productFormToProduct;
+    private final JmsTemplate jmsTemplate;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository, ProductFormToProduct productFormToProduct,
@@ -71,9 +68,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void sendMessage(String id) {
-        Map<String, String> actionmap = new HashMap<>();
-        actionmap.put("id", id);
+        Map<String, String> actionMap = new HashMap<>();
+        actionMap.put("id", id);
         log.info("Sending the index request through queue message");
-        jmsTemplate.convertAndSend(SpringBootActiveMQApplication.PRODUCT_MESSAGE_QUEUE, actionmap);
+        jmsTemplate.convertAndSend(SpringBootActiveMQApplication.PRODUCT_MESSAGE_QUEUE, actionMap);
     }
 }

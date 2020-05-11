@@ -17,7 +17,7 @@ import java.util.Map;
 @Component
 public class MessageListener {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     private static final Logger log = LogManager.getLogger(MessageListener.class);
 
@@ -28,9 +28,11 @@ public class MessageListener {
     /**
      * This method is invoked whenever any new message is put in the queue.
      * See {@link guru.springframework.SpringBootActiveMQApplication} for more details
+     *
      * @param message
      */
-    @JmsListener(destination = SpringBootActiveMQApplication.PRODUCT_MESSAGE_QUEUE, containerFactory = "jmsFactory")
+    @JmsListener(destination = SpringBootActiveMQApplication.PRODUCT_MESSAGE_QUEUE,
+            containerFactory = "jmsFactory")
     public void receiveMessage(Map<String, String> message) {
         log.info("Received <" + message + ">");
         Long id = Long.valueOf(message.get("id"));
